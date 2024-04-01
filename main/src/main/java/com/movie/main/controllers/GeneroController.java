@@ -1,59 +1,32 @@
 package com.movie.main.controllers;
 
-import java.util.LinkedHashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.InvalidIsolationLevelException;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-import com.movie.main.exceptions.TipoContenidoDuplicateException;
-import com.movie.main.exceptions.TipoContenidoNotFound;
-import com.movie.main.models.Plataforma;
-import com.movie.main.models.TipoContenido;
-import com.movie.main.repositories.PlataformaRepository;
-import com.movie.main.repositories.TipoContenidoRepository;
+import com.movie.main.models.Genero;
+import com.movie.main.services.GeneroService;
 
-import jakarta.transaction.Transactional;
+import io.swagger.v3.oas.annotations.parameters.RequestBody;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 
-@Service
-class TipoContenidoService {
+
+@RestController
+@RequestMapping("/genero")
+@CrossOrigin("*")
+@PreAuthorize("hasRole('ADMIN')")
+@SecurityRequirement(name = "bearerAuth")
+public class GeneroController {
     @Autowired
-    TipoContenidoRepository tipoContenidoRepository;
-    @Autowired
-    PlataformaRepository plataformaRepository;
+    GeneroService generoService;
 
-    public Map<Object, Object> guardarTipoContenido(TipoContenido tipoContenido) {
-        try {
-            tipoContenidoRepository.save(tipoContenido);
-            return new LinkedHashMap<>() {
-                {
-                    put("message", "El tipo de contenido ha sido registrado.");
-                }
-            };
-        } catch (Exception e) {
-            throw new TipoContenidoDuplicateException("El tipo de contenido ingresado ya existe.");
-        }
-    }
-
-    @Transactional
-    public Map<Object, Object> agregarPlataforma(Map<Object, Object> valores) {
-        try {
-            int tipoId = Integer.parseInt(valores.get("tipo_id").toString());
-            int plataformaId = Integer.parseInt(valores.get("plataforma_id").toString());
-            TipoContenido tipoContenido = tipoContenidoRepository.findById(tipoId)
-                    .orElseThrow(() -> new TipoContenidoNotFound("El tipo de contenido ingresado no existe."));
-            Plataforma plataforma = plataformaRepository.findById(plataformaId)
-                    .orElseThrow(() -> new TipoContenidoNotFound("La plataforma ingresada no existe."));
-            tipoContenido.getPlataformas().add(plataforma);
-            plataforma.getTipocontenidos().add(tipoContenido);
-            return new LinkedHashMap<>() {
-                {
-                    put("message", "Se ha agregado la plataforma al tipo de contenido.");
-                }
-            };
-        } catch (NumberFormatException e) {
-            throw new InvalidIsolationLevelException("Los parametros ingresados no tienen un formato valido.");
-        }
+    @PostMapping
+    public Map<Object, Object> guardarGenero(@RequestBody Genero genero) {
+        return generoService.guardarGenero(genero);
     }
 }

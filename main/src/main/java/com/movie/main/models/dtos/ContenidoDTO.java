@@ -1,18 +1,17 @@
 
 package com.movie.main.models.dtos;
 
-import com.movie.main.models.TipoContenido;
-
 public class ContenidoDTO {    
     private Integer id;    
     private String nombre;    
-    private TipoContenido tipoContenido;    
+    private Integer tipo_id;    
     private Integer genero1_id;    
     private Integer genero2_id;    
     private String estado;    
     private Integer plataforma_id;    
-    private double calificacion;    
-    private String comentario;
+    private Double calificacion;    
+    private String comentario;    
+    private Integer usuario_id;
     public Integer getId() {
         return id;
     }
@@ -25,11 +24,11 @@ public class ContenidoDTO {
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
-    public TipoContenido getTipoContenido() {
-        return tipoContenido;
+    public Integer getTipo_id() {
+        return tipo_id;
     }
-    public void setTipoContenido(TipoContenido tipoContenido) {
-        this.tipoContenido = tipoContenido;
+    public void setTipo_id(Integer tipo_id) {
+        this.tipo_id = tipo_id;
     }
     public Integer getGenero1_id() {
         return genero1_id;
@@ -55,10 +54,10 @@ public class ContenidoDTO {
     public void setPlataforma_id(Integer plataforma_id) {
         this.plataforma_id = plataforma_id;
     }
-    public double getCalificacion() {
+    public Double getCalificacion() {
         return calificacion;
     }
-    public void setCalificacion(double calificacion) {
+    public void setCalificacion(Double calificacion) {
         this.calificacion = calificacion;
     }
     public String getComentario() {
@@ -67,7 +66,13 @@ public class ContenidoDTO {
     public void setComentario(String comentario) {
         this.comentario = comentario;
     }
-  
+    public Integer getUsuario_id() {
+        return usuario_id;
+    }
+    public void setUsuario_id(Integer usuario_id) {
+        this.usuario_id = usuario_id;
+    }
+    
 
 
 }

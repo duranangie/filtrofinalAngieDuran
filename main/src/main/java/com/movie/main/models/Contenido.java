@@ -1,126 +1,117 @@
 package com.movie.main.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.movie.main.models.dtos.ContenidoDTO;
 
 import jakarta.persistence.*;
+
 @Entity
 @Table(name = "contenidos")
 public class Contenido {
-@Id
-@GeneratedValue(strategy = GenerationType.IDENTITY)
-private Integer id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+    @Column(name = "nombre", nullable = false)
+    private String nombre;
+    @ManyToOne
+    @JoinColumn(name = "tipo_id", nullable = false)
+    private TipoContenido tipoContenido;
+    @ManyToOne
+    @JoinColumn(name = "genero1_id", nullable = false)
+    private Genero genero1;
+    @ManyToOne
+    @JoinColumn(name = "genero2_id")
+    private Genero genero2;
+    @Column(name = "estado", nullable = false)
+    private String estado;
+    @ManyToOne
+    @JoinColumn(name = "plataforma_id", nullable = false)
+    private Plataforma plataforma;
+    @Column(name = "calificacion")
+    private Double calificacion;
+    @Column(name = "comentario")
+    private String comentario;
+    @ManyToOne
+    @JoinColumn(name = "usuario_id", nullable = false)
+    @JsonIgnore
+    private Usuario usuario;
 
-@Column(name = "nombre", nullable = false)
-private String nombre;
+    public Integer getId() {
+        return id;
+    }
 
-@ManyToOne
-@JoinColumn(name = "tipo_id", nullable = false)
-private TipoContenido tipoContenido;
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
-@ManyToOne
-@JoinColumn(name = "genero1_id", nullable = false)
-private Genero genero1;
+    public String getNombre() {
+        return nombre;
+    }
 
-@ManyToOne
-@JoinColumn(name = "genero2_id")
-private Genero genero2;
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
 
-@Column(name = "estado", nullable = false)
-private String estado;
+    public TipoContenido getTipoContenido() {
+        return tipoContenido;
+    }
 
-@ManyToOne
-@JoinColumn(name = "plataforma_id", nullable = false)
-private Plataforma plataforma;
+    public void setTipoContenido(TipoContenido tipoContenido) {
+        this.tipoContenido = tipoContenido;
+    }
 
-@Column(name = "calificacion", nullable = false)
-private double calificacion;
+    public Genero getGenero1() {
+        return genero1;
+    }
 
-@Column(name = "comentario", nullable = false)
-private String comentario;
+    public void setGenero1(Genero genero1) {
+        this.genero1 = genero1;
+    }
 
-@ManyToOne
-@JoinColumn(name = "usuario_id", nullable = false)
-private User usuario;
+    public Genero getGenero2() {
+        return genero2;
+    }
 
-public Integer getId() {
-    return id;
-}
+    public void setGenero2(Genero genero2) {
+        this.genero2 = genero2;
+    }
 
-public void setId(Integer id) {
-    this.id = id;
-}
+    public String getEstado() {
+        return estado;
+    }
 
-public String getNombre() {
-    return nombre;
-}
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
 
-public void setNombre(String nombre) {
-    this.nombre = nombre;
-}
+    public Plataforma getPlataforma() {
+        return plataforma;
+    }
 
-public TipoContenido getTipoContenido() {
-    return tipoContenido;
-}
+    public void setPlataforma(Plataforma plataforma) {
+        this.plataforma = plataforma;
+    }
 
-public void setTipoContenido(TipoContenido tipoContenido) {
-    this.tipoContenido = tipoContenido;
-}
+    public Double getCalificacion() {
+        return calificacion;
+    }
 
-public Genero getGenero1() {
-    return genero1;
-}
+    public void setCalificacion(Double calificacion) {
+        this.calificacion = calificacion;
+    }
 
-public void setGenero1(Genero genero1) {
-    this.genero1 = genero1;
-}
+    public String getComentario() {
+        return comentario;
+    }
 
-public Genero getGenero2() {
-    return genero2;
-}
+    public void setComentario(String comentario) {
+        this.comentario = comentario;
+    }
 
-public void setGenero2(Genero genero2) {
-    this.genero2 = genero2;
-}
+    public Usuario getUsuario() {
+        return usuario;
+    }
 
-public String getEstado() {
-    return estado;
-}
-
-public void setEstado(String estado) {
-    this.estado = estado;
-}
-
-public Plataforma getPlataforma() {
-    return plataforma;
-}
-
-public void setPlataforma(Plataforma plataforma) {
-    this.plataforma = plataforma;
-}
-
-public double getCalificacion() {
-    return calificacion;
-}
-
-public void setCalificacion(double calificacion) {
-    this.calificacion = calificacion;
-}
-
-public String getComentario() {
-    return comentario;
-}
-
-public void setComentario(String comentario) {
-    this.comentario = comentario;
-}
-
-public User getUsuario() {
-    return usuario;
-}
-
-public void setUsuario(User usuario) {
-    this.usuario = usuario;
-}
-
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
 }
