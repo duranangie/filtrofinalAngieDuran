@@ -71,3 +71,6 @@ En este proyecto de Spring boot se tiene como objetivo crear un API REST en java
 * Cuenta con una organización que separa los componentes de la aplicacion utilizando clases de diferentes tipos.
 
 
+### Modelo de base de datos
+
+![alt text](image.png)
